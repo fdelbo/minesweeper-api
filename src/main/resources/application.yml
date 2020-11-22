@@ -1,0 +1,17 @@
+server:
+  servlet:
+    context-path: /minesweeper
+  port: 8080
+
+spring:
+  application:
+    name: minesweeper
+
+  data:
+    mongodb:
+      uri: mongodb+srv://minesweeper:passw0rd@cluster0.ovbfd.mongodb.net/minesweeper?retryWrites=true&w=majority
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    deserialization:
+      fail-on-unknown-properties: false
