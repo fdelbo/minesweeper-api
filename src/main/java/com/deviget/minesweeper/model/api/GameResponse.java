@@ -1,10 +1,16 @@
 package com.deviget.minesweeper.model.api;
 
+import java.util.List;
+
 public class GameResponse {
     private String id;
     private String userId;
-    private String status;
+    private String gameStatus;
     private String createdDate;
+    private int rows;
+    private int columns;
+    private int mines;
+    private List<CellResponse> cells;
 
     public GameResponse() { }
 
@@ -16,13 +22,6 @@ public class GameResponse {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public String getUserId() {
         return userId;
@@ -38,5 +37,45 @@ public class GameResponse {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    public List<CellResponse> getCells() {
+        return cells;
+    }
+
+    public void setCells(List<CellResponse> cells) {
+        this.cells = cells;
+    }
+
+    public String getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(String gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    public int getMines() {
+        return mines;
+    }
+
+    public void setMines(int mines) {
+        this.mines = mines;
     }
 }

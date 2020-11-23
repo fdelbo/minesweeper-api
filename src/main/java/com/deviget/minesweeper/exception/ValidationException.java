@@ -16,6 +16,11 @@ public class ValidationException extends RuntimeException {
                 .collect(Collectors.toList());
     }
 
+    public ValidationException(String message, List<String> violations) {
+        super(message);
+        this.violations = violations;
+    }
+
     public ValidationException(String message) {
         super(message);
         this.violations = List.of(message);

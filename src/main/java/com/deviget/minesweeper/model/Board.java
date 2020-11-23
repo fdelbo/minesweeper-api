@@ -4,13 +4,17 @@ import java.util.Random;
 
 final public class Board {
 
-    private final int rowsCount;
-    private final int columnsCount;
-    private final int minesCount;
-    private final Cell[][] cells;
+    private int rowsCount;
+    private int columnsCount;
+    private int minesCount;
+    private Cell[][] cells;
 
     private GameStatus gameStatus;
     private int openedCells;
+
+    public Board() {
+
+    }
 
     public Board(int rows, int columns, int mines) {
         this.cells = new Cell[rows][columns];
@@ -64,17 +68,17 @@ final public class Board {
     }
 
 
-    public void flipCell(int f, int c) {
-        if(cells[f][c].isMine()) {
+    public void flipCell(int r, int c) {
+        if(cells[r][c].isMine()) {
             gameStatus = GameStatus.LOST;
             //TODO show mines
             return;
         }
 
         //If cell status is 'closed'
-        if(cells[f][c].isClosed()){
+        if(cells[r][c].isClosed()){
             //Set cell status as 'opened'
-            cells[f][c].setStatus(CellStatus.OPENED);
+            cells[r][c].setStatus(CellStatus.OPENED);
             openedCells++;
 
             if(openedCells == (rowsCount * columnsCount - minesCount)){
@@ -82,10 +86,10 @@ final public class Board {
             } else {
 
                 //If cell has no nearby mines
-                if(cells[f][c].hasNoNearbyMines()){
+                if(cells[r][c].hasNoNearbyMines()){
 
                     //Open nearby mines cells
-                    for(int f2 = max(0, f - 1) ; f2 < min(rowsCount,f + 2) ; f2++){
+                    for(int f2 = max(0, r - 1) ; f2 < min(rowsCount,r + 2) ; f2++){
                         for(int c2 = max(0,c - 1) ; c2 < min(columnsCount,c + 2) ; c2++){
                             flipCell(f2, c2);
                         }
@@ -93,7 +97,6 @@ final public class Board {
                 }
             }
         }
-
     }
 
     @Override
@@ -116,6 +119,25 @@ final public class Board {
         return sb.toString();
     }
 
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public int getRowsCount() {
+        return rowsCount;
+    }
+
+    public int getColumnsCount() {
+        return columnsCount;
+    }
+
+    public int getMinesCount() {
+        return minesCount;
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
 
     private String statusSymbol(Cell cell) {
         var symbol = "";
@@ -144,7 +166,4 @@ final public class Board {
         return Math.max(a, b);
     }
 
-    public GameStatus getGameStatus() {
-        return gameStatus;
-    }
 }
