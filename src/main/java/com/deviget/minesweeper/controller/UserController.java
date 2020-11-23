@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private UserService userService;
+    private Converter<User, UserResponse> toResponseConverter;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, Converter<User, UserResponse> toResponseConverter) {
         this.userService = userService;
+        this.toResponseConverter = toResponseConverter;
     }
 
     @ApiOperation("Allows to create a User")
@@ -34,9 +37,7 @@ public class UserController {
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponse> create(@RequestBody CreateUserRequest request) {
-        var user = userService.create(new User(request.getName(), request.getLastName()));
-
-        var userResponse = new UserResponse(user.getId(), user.getName(), user.getLastName());
-        return ResponseEntity.ok(userResponse);
+        var user = userService.create(request);
+        return ResponseEntity.ok(toResponseConverter.convert(user));
     }
 }
