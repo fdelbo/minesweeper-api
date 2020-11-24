@@ -4,16 +4,16 @@ import com.deviget.minesweeper.model.api.CreateUserRequest;
 import com.deviget.minesweeper.model.document.User;
 import com.deviget.minesweeper.repository.UserRepository;
 import com.deviget.minesweeper.service.UserService;
-import com.deviget.minesweeper.validator.CreateUserRequestValidator;
+import com.deviget.minesweeper.validator.AnnotationBasedValidator;
 import org.springframework.stereotype.Service;
 
 @Service
 class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
-    private CreateUserRequestValidator requestValidator;
+    private AnnotationBasedValidator requestValidator;
 
-    public UserServiceImpl(UserRepository userRepository, CreateUserRequestValidator requestValidator) {
+    public UserServiceImpl(UserRepository userRepository, AnnotationBasedValidator requestValidator) {
         this.userRepository = userRepository;
         this.requestValidator = requestValidator;
     }

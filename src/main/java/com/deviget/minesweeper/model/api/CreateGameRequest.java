@@ -22,6 +22,15 @@ public class CreateGameRequest {
     @Min(value = 1, message = MINES_NOT_NEGATIVE_NUMBER)
     private int mines;
 
+    public CreateGameRequest() { }
+
+    public CreateGameRequest(String userId, int rows, int columns, int mines) {
+        this.userId = userId;
+        this.rows = rows;
+        this.columns = columns;
+        this.mines = mines;
+    }
+
     public int getRows() {
         return rows;
     }

@@ -10,7 +10,7 @@ import java.util.Random;
  * This class is the representation of the game board.
  * It contains the necessary methods to manage the minesweeper.
  */
-final public class Board {
+public class Board {
 
     private int rowsCount;
     private int columnsCount;

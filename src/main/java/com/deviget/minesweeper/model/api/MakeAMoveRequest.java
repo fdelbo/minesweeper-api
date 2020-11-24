@@ -27,6 +27,15 @@ public class MakeAMoveRequest {
     @Min(value = 0, message = COLUMN_NOT_NEGATIVE_NUMBER)
     private int column;
 
+    public MakeAMoveRequest() { }
+
+    public MakeAMoveRequest(String userId, String type, int row, int column) {
+        this.userId = userId;
+        this.type = type;
+        this.row = row;
+        this.column = column;
+    }
+
     public String getUserId() {
         return userId;
     }

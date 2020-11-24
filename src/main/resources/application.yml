@@ -9,7 +9,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb+srv://minesweeper:${DB_PASSWORD}@cluster0.ovbfd.mongodb.net/minesweeper?retryWrites=true&w=majority
+      uri: mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_CLUSTER_URL}/${DB_NAME}?retryWrites=true&w=majority
 
   jackson:
     property-naming-strategy: SNAKE_CASE
