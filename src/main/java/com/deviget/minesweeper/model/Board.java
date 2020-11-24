@@ -1,8 +1,4 @@
-package com.deviget.minesweeper.game;
-
-import com.deviget.minesweeper.model.Cell;
-import com.deviget.minesweeper.model.CellStatus;
-import com.deviget.minesweeper.model.GameStatus;
+package com.deviget.minesweeper.model;
 
 import java.util.Random;
 

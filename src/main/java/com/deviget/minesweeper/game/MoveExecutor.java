@@ -1,5 +1,6 @@
 package com.deviget.minesweeper.game;
 
+import com.deviget.minesweeper.model.Board;
 import com.deviget.minesweeper.model.Cell;
 import com.deviget.minesweeper.model.GameStatus;
 import com.deviget.minesweeper.model.MoveType;

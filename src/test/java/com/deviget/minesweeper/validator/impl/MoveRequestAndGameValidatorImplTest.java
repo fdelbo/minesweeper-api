@@ -1,7 +1,7 @@
 package com.deviget.minesweeper.validator.impl;
 
 import com.deviget.minesweeper.exception.ValidationException;
-import com.deviget.minesweeper.game.Board;
+import com.deviget.minesweeper.model.Board;
 import com.deviget.minesweeper.model.api.MakeAMoveRequest;
 import com.deviget.minesweeper.model.document.Game;
 import org.junit.jupiter.api.Test;

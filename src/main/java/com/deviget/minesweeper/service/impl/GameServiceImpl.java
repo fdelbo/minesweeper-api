@@ -1,7 +1,7 @@
 package com.deviget.minesweeper.service.impl;
 
 import com.deviget.minesweeper.exception.ResourceNotFoundException;
-import com.deviget.minesweeper.game.Board;
+import com.deviget.minesweeper.model.Board;
 import com.deviget.minesweeper.game.MoveExecutorResolver;
 import com.deviget.minesweeper.model.GameStatus;
 import com.deviget.minesweeper.model.MoveType;
