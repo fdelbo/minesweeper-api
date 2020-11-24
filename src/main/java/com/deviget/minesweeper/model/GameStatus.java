@@ -2,7 +2,7 @@ package com.deviget.minesweeper.model;
 
 public enum GameStatus {
     PLAYING,
-    LOST,
+    GAME_OVER,
     WON,
     PAUSE
 }

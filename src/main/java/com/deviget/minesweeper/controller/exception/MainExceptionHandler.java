@@ -17,6 +17,14 @@ public class MainExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(MainExceptionHandler.class);
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiErrorResponse> illegalArgumentException(IllegalArgumentException e) {
+        logger.warn("Illegal arguments", e);
+        var apiError = new ApiErrorResponse("ILLEGAL_ARGUMENTS", "Request contains illegal arguments",
+                List.of(e.getMessage()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> resourceNotFoundException(ResourceNotFoundException e) {
         logger.warn("Resource not found", e);

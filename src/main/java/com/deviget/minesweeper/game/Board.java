@@ -82,7 +82,7 @@ final public class Board {
      */
     public void flipCell(int r, int c) {
         if(cells[r][c].isMine()) {
-            gameStatus = GameStatus.LOST;
+            gameStatus = GameStatus.GAME_OVER;
             openMines();
             return;
         }
@@ -216,6 +216,10 @@ final public class Board {
 
     public GameStatus getGameStatus() {
         return gameStatus;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.gameStatus = status;
     }
 
     public int getRowsCount() {

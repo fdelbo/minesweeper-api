@@ -28,7 +28,7 @@ class NoOpMoveExecutor extends MoveExecutor {
 
     @Override
     public List<GameStatus> allowedGameStatuses() {
-        return List.of(GameStatus.LOST, GameStatus.WON, GameStatus.PAUSE);
+        return List.of(GameStatus.GAME_OVER, GameStatus.WON, GameStatus.PAUSE);
     }
 
     @Override

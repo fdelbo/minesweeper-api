@@ -27,7 +27,7 @@ public abstract class MoveExecutor {
     }
 
     /**
-     * Action to be executed agains the game {@link Board}
+     * Action to be executed against the game {@link Board}
      * @param game where the action is going to be executed
      * @param r row that in combination with a column defines a {@link Cell}
      * @param c column that in combination with a row defines a {@link Cell}
