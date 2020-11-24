@@ -118,6 +118,57 @@ final public class Board {
         }
     }
 
+    @Override
+    public String toString() {
+        var sb = new StringBuilder("\n");
+
+        for(int r=0 ; r < rowsCount ; r++) {
+            for(int c=0 ; c < columnsCount ; c++) {
+                sb.append("[")
+                        .append(String.format("%s %s %s", statusSymbol(cells[r][c]),
+                                cells[r][c].isMine() ? "#" : "-",
+                                cells[r][c].getNearbyMines()))
+                        .append("]")
+                        .append(" ");
+            }
+
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public void tooglePauseOrPlaying() {
+        switch (gameStatus) {
+            case PLAYING:
+                gameStatus = GameStatus.PAUSE;
+                break;
+            case PAUSE:
+                gameStatus = GameStatus.PLAYING;
+                break;
+        }
+    }
+
+    public int getRowsCount() {
+        return rowsCount;
+    }
+
+    public int getColumnsCount() {
+        return columnsCount;
+    }
+
+    public int getMinesCount() {
+        return minesCount;
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+
     /**
      * Sets a {@link Cell} to a CLOSED {@link CellStatus} if the {@link CellStatus} previously is
      * FLAGGED or MARKED
@@ -176,24 +227,12 @@ final public class Board {
         }
     }
 
-    @Override
-    public String toString() {
-        var sb = new StringBuilder("\n");
+    private int min(int a, int b) {
+        return Math.min(a, b);
+    }
 
-        for(int r=0 ; r < rowsCount ; r++) {
-            for(int c=0 ; c < columnsCount ; c++) {
-                sb.append("[")
-                        .append(String.format("%s %s %s", statusSymbol(cells[r][c]),
-                                cells[r][c].isMine() ? "#" : "-",
-                                cells[r][c].getNearbyMines()))
-                        .append("]")
-                        .append(" ");
-            }
-
-            sb.append("\n");
-        }
-
-        return sb.toString();
+    private int max(int a, int b) {
+        return Math.max(a, b);
     }
 
     private String statusSymbol(Cell cell) {
@@ -212,38 +251,6 @@ final public class Board {
         }
 
         return symbol;
-    }
-
-    public GameStatus getGameStatus() {
-        return gameStatus;
-    }
-
-    public void setStatus(GameStatus status) {
-        this.gameStatus = status;
-    }
-
-    public int getRowsCount() {
-        return rowsCount;
-    }
-
-    public int getColumnsCount() {
-        return columnsCount;
-    }
-
-    public int getMinesCount() {
-        return minesCount;
-    }
-
-    public Cell[][] getCells() {
-        return cells;
-    }
-
-    private int min(int a, int b) {
-        return Math.min(a, b);
-    }
-
-    private int max(int a, int b) {
-        return Math.max(a, b);
     }
 
 }

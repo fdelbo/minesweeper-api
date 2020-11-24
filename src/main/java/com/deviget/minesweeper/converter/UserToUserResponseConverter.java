@@ -15,6 +15,7 @@ class UserToUserResponseConverter implements Converter<User, UserResponse> {
         target.setId(source.getId());
         target.setName(source.getName());
         target.setLastName(source.getLastName());
+        target.setUserName(source.getUserName());
 
         return target;
     }

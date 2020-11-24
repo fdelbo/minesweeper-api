@@ -33,7 +33,7 @@ public interface GameService {
      * @param gameId where the status is going to be changed
      * @param request used to change the {@link GameStatus}
      */
-    void changeStatus(String gameId, ChangeGameStatusRequest request);
+    void tooglePauseOrPlay(String gameId, ChangeGameStatusRequest request);
 
     /**
      * Retrieves a list of {@link Game} given a userId

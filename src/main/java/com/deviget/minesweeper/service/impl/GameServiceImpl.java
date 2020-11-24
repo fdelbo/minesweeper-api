@@ -12,13 +12,13 @@ import com.deviget.minesweeper.model.document.Game;
 import com.deviget.minesweeper.repository.GameRepository;
 import com.deviget.minesweeper.service.GameService;
 import com.deviget.minesweeper.validator.AnnotationBasedValidator;
-import com.deviget.minesweeper.validator.ChangeGameStatusRequestValidator;
 import com.deviget.minesweeper.validator.CreateGameRequestValidator;
 import com.deviget.minesweeper.validator.MakeAMoveRequestAndGameValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -29,20 +29,17 @@ class GameServiceImpl implements GameService {
     private CreateGameRequestValidator createRequestValidator;
     private AnnotationBasedValidator annotationBasedValidator;
     private MakeAMoveRequestAndGameValidator moveRequestAndGameValidator;
-    private ChangeGameStatusRequestValidator changeGameStatusRequestValidator;
     private MoveExecutorResolver moveExecutorResolver;
     private GameRepository gameRepository;
 
     public GameServiceImpl(GameRepository gameRepository, CreateGameRequestValidator requestValidator,
                            AnnotationBasedValidator annotationBasedValidator,
                            MakeAMoveRequestAndGameValidator moveRequestAndGameValidator,
-                           MoveExecutorResolver moveExecutorResolver,
-                           ChangeGameStatusRequestValidator changeGameStatusRequestValidator) {
+                           MoveExecutorResolver moveExecutorResolver) {
         this.gameRepository = gameRepository;
         this.createRequestValidator = requestValidator;
         this.annotationBasedValidator = annotationBasedValidator;
         this.moveRequestAndGameValidator = moveRequestAndGameValidator;
-        this.changeGameStatusRequestValidator = changeGameStatusRequestValidator;
         this.moveExecutorResolver = moveExecutorResolver;
     }
 
@@ -69,6 +66,7 @@ class GameServiceImpl implements GameService {
         var game = findGameInRepository(gameId, request.getUserId());
         moveRequestAndGameValidator.accept(request, game);
 
+        //Selects a move executor
         var moveExecutor = moveExecutorResolver.resolveMoveExecutor(game.getBoard().getGameStatus(),
                 MoveType.valueOf(request.getType()));
 
@@ -80,13 +78,17 @@ class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void changeStatus(String gameId, ChangeGameStatusRequest request) {
-        changeGameStatusRequestValidator.accept(request);
-        logger.info("Changing status of game [{}] to [{}]", gameId, request.getStatus());
+    public void tooglePauseOrPlay(String gameId, ChangeGameStatusRequest request) {
+        annotationBasedValidator.accept(request);
+        logger.info("Changing status of game [{}]", gameId);
 
         //Find and change the status of a Game
         var game = findGameInRepository(gameId, request.getUserId());
-        game.getBoard().setStatus(GameStatus.valueOf(request.getStatus()));
+        game.getBoard().tooglePauseOrPlaying();
+
+        if(GameStatus.PLAYING.equals(game.getBoard().getGameStatus())) {
+            game.setLastResumeDate(Instant.now());
+        }
 
         gameRepository.save(game);
     }

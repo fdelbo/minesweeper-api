@@ -21,7 +21,7 @@ class UserServiceImpl implements UserService {
     @Override
     public User create(CreateUserRequest request) {
         requestValidator.accept(request);
-        var user = new User(request.getName(), request.getLastName());
+        var user = new User(request.getName(), request.getLastName(), request.getUserName());
 
         return userRepository.save(user);
     }

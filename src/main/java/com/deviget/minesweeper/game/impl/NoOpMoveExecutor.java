@@ -27,6 +27,11 @@ class NoOpMoveExecutor extends MoveExecutor {
     }
 
     @Override
+    protected Game saveInRepository(Game game) {
+        return game;
+    }
+
+    @Override
     public List<GameStatus> allowedGameStatuses() {
         return List.of(GameStatus.GAME_OVER, GameStatus.WON, GameStatus.PAUSE);
     }

@@ -63,17 +63,17 @@ public class GameController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Status changed successfully"),
             @ApiResponse(code = 400, message = "Invalid request"),
-            @ApiResponse(code = 404, message = "Game or User not found"),
+            @ApiResponse(code = 404, message = "Game not found"),
             @ApiResponse(code = 503, message = "Service unavailable")
     })
     @PatchMapping(path = "{gameId}/status", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> changeGameStatus(
+    public ResponseEntity<?> tooglePauseOrPlay(
             @ApiParam(value = "Id related to the game you want to change the status")
             @PathVariable("gameId") String gameId,
             @ApiParam(value = "Date related to the game you want to change the status")
             @RequestBody ChangeGameStatusRequest request) {
 
-        gameService.changeStatus(gameId, request);
+        gameService.tooglePauseOrPlay(gameId, request);
         return ResponseEntity.ok().build();
     }
 

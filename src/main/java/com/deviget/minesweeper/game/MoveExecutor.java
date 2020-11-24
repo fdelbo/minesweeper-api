@@ -6,10 +6,11 @@ import com.deviget.minesweeper.model.MoveType;
 import com.deviget.minesweeper.model.document.Game;
 import com.deviget.minesweeper.repository.GameRepository;
 
+import java.time.Instant;
 import java.util.List;
 
 /**
- * This class is an abstraction of a move execution
+ * This class is an abstraction of a move execution implemented as a template method
  */
 public abstract class MoveExecutor {
 
@@ -21,9 +22,12 @@ public abstract class MoveExecutor {
 
     final public Game execute(Game game, int r, int c) {
         game = doExecute(game, r, c);
-        gameRepository.save(game);
+        return saveInRepository(game);
+    }
 
-        return game;
+    protected Game saveInRepository(Game game) {
+        game.setLastMoveDate(Instant.now());
+        return gameRepository.save(game);
     }
 
     /**

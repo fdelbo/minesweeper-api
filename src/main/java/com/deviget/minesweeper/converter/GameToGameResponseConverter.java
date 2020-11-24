@@ -21,6 +21,10 @@ class GameToGameResponseConverter implements Converter<Game, GameResponse> {
         gameResponse.setId(game.getId());
         gameResponse.setUserId(game.getUserId());
         gameResponse.setCreatedDate(game.getCreatedDate().toString());
+        gameResponse.setLastMoveDate(game.getLastMoveDate() != null ?
+                game.getLastMoveDate().toString() : null);
+        gameResponse.setLastResumeDate(game.getLastResumeDate() != null ?
+                game.getLastResumeDate().toString() : null);
         gameResponse.setGameStatus(board.getGameStatus().name());
         gameResponse.setRows(board.getRowsCount());
         gameResponse.setColumns(board.getColumnsCount());

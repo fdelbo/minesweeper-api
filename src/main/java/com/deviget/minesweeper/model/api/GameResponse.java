@@ -7,6 +7,8 @@ public class GameResponse {
     private String userId;
     private String gameStatus;
     private String createdDate;
+    private String lastMoveDate;
+    private String lastResumeDate;
     private int rows;
     private int columns;
     private int mines;
@@ -77,5 +79,21 @@ public class GameResponse {
 
     public void setMines(int mines) {
         this.mines = mines;
+    }
+
+    public String getLastMoveDate() {
+        return lastMoveDate;
+    }
+
+    public void setLastMoveDate(String lastMoveDate) {
+        this.lastMoveDate = lastMoveDate;
+    }
+
+    public String getLastResumeDate() {
+        return lastResumeDate;
+    }
+
+    public void setLastResumeDate(String lastResumeDate) {
+        this.lastResumeDate = lastResumeDate;
     }
 }

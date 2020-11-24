@@ -6,6 +6,7 @@ public class CreateUserRequest {
 
     private static final String NAME_NOT_BLANK = "Name cannot be null or empty";
     private static final String LAST_NAME_NOT_BLANK = "LastName cannot be null or empty";
+    private static final String USERNAME_NOT_BLANK = "UserName cannot be blank";
 
     @NotBlank(message = NAME_NOT_BLANK)
     private String name;
@@ -13,11 +14,18 @@ public class CreateUserRequest {
     @NotBlank(message = LAST_NAME_NOT_BLANK)
     private String lastName;
 
+    @NotBlank(message = USERNAME_NOT_BLANK)
+    private String userName;
+
     public String getName() {
         return name;
     }
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }
