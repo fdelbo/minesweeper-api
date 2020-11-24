@@ -71,4 +71,16 @@ public class Cell {
     public void setStatus(CellStatus status) {
         this.status = status;
     }
+
+    public boolean isOpened() {
+        return CellStatus.OPENED.equals(status);
+    }
+
+    public boolean isFlagged() {
+        return CellStatus.FLAGGED.equals(status);
+    }
+
+    public boolean isMarked() {
+        return CellStatus.MARKED.equals(status);
+    }
 }

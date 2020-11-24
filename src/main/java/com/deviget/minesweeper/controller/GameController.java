@@ -53,7 +53,7 @@ public class GameController {
             @ApiParam(value = "Data related to the move you want to make")
             @RequestBody MakeAMoveRequest moveRequest) {
 
-        var game = gameService.click(gameId, moveRequest);
+        var game = gameService.makeAMove(gameId, moveRequest);
         return ResponseEntity.ok(toResponseConverter.convert(game));
     }
 }

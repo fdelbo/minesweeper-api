@@ -1,6 +1,6 @@
 package com.deviget.minesweeper.model.document;
 
-import com.deviget.minesweeper.model.Board;
+import com.deviget.minesweeper.game.Board;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

@@ -1,7 +1,15 @@
-package com.deviget.minesweeper.model;
+package com.deviget.minesweeper.game;
+
+import com.deviget.minesweeper.model.Cell;
+import com.deviget.minesweeper.model.CellStatus;
+import com.deviget.minesweeper.model.GameStatus;
 
 import java.util.Random;
 
+/**
+ * This class is the representation of the game board.
+ * It contains the necessary methods to manage the minesweeper.
+ */
 final public class Board {
 
     private int rowsCount;
@@ -13,7 +21,6 @@ final public class Board {
     private int openedCells;
 
     public Board() {
-
     }
 
     public Board(int rows, int columns, int mines) {
@@ -67,14 +74,70 @@ final public class Board {
 
     }
 
-
+    /**
+     * This methods flips a {@link Cell}
+     *
+     * @param r is the row that in combination with a column defines a {@link Cell} that should be flipped
+     * @param c is the column that in combination with a row defines a {@link Cell} that should be flipped
+     */
     public void flipCell(int r, int c) {
         if(cells[r][c].isMine()) {
             gameStatus = GameStatus.LOST;
-            //TODO show mines
+            openMines();
             return;
         }
 
+        flipCellAndNeighbours(r, c);
+    }
+
+    /**
+     * Sets a flag to a given {@link Cell}
+     * @param r is the row that in combination with a column defines a {@link Cell}
+     * @param c is the column that in combination with a row defines a {@link Cell}
+     */
+    public void toggleFlag(int r, int c) {
+        var cell = cells[r][c];
+        if(cell.isClosed()) {
+            cell.setStatus(CellStatus.FLAGGED);
+        } else if(cell.isFlagged()) {
+            cell.setStatus(CellStatus.CLOSED);
+        }
+    }
+
+    /**
+     * Sets a mark to a given {@link Cell}
+     * @param r is the row that in combination with a column defines a {@link Cell}
+     * @param c is the column that in combination with a row defines a {@link Cell}
+     */
+    public void toggleMark(int r, int c) {
+        var cell = cells[r][c];
+        if(cell.isClosed()) {
+            cell.setStatus(CellStatus.MARKED);
+        } else if(cell.isMarked()) {
+            cell.setStatus(CellStatus.CLOSED);
+        }
+    }
+
+    /**
+     * Sets a {@link Cell} to a CLOSED {@link CellStatus} if the {@link CellStatus} previously is
+     * FLAGGED or MARKED
+     * @param r is the row that in combination with a column defines a {@link Cell}
+     * @param c is the column that in combination with a row defines a {@link Cell}
+     */
+    public void removeFlagOrMark(int r, int c) {
+        var cell = cells[r][c];
+        if(cell.isFlagged() || cell.isMarked()) {
+            cell.setStatus(CellStatus.CLOSED);
+        }
+    }
+
+    /**
+     * This method flips neighboud cells given both a row and a column
+     *
+     * @param r is the row that in combination with a column defines a {@link Cell} that should be flipped
+     * @param c is the column that in combination with a row defines a {@link Cell} that should be flipped
+     */
+    private void flipCellAndNeighbours(int r, int c) {
         //If cell status is 'closed'
         if(cells[r][c].isClosed()){
             //Set cell status as 'opened'
@@ -91,9 +154,23 @@ final public class Board {
                     //Open nearby mines cells
                     for(int f2 = max(0, r - 1) ; f2 < min(rowsCount,r + 2) ; f2++){
                         for(int c2 = max(0,c - 1) ; c2 < min(columnsCount,c + 2) ; c2++){
-                            flipCell(f2, c2);
+                            flipCellAndNeighbours(f2, c2);
                         }
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * This method opens every mine the board has
+     */
+    private void openMines() {
+        for(int r = 0 ; r < rowsCount ; r++) {
+            for(int c = 0 ; c < columnsCount ; c++) {
+                var cell = cells[r][c];
+                if(cell.isMine()) {
+                    cell.setStatus(CellStatus.OPENED);
                 }
             }
         }
@@ -119,6 +196,24 @@ final public class Board {
         return sb.toString();
     }
 
+    private String statusSymbol(Cell cell) {
+        var symbol = "";
+        var cellStatus = cell.getStatus();
+        switch (cellStatus) {
+            case CLOSED:
+                symbol = "C";
+                break;
+            case OPENED:
+                symbol = "O";
+                break;
+            case FLAGGED:
+                symbol = "F";
+                break;
+        }
+
+        return symbol;
+    }
+
     public GameStatus getGameStatus() {
         return gameStatus;
     }
@@ -138,25 +233,6 @@ final public class Board {
     public Cell[][] getCells() {
         return cells;
     }
-
-    private String statusSymbol(Cell cell) {
-        var symbol = "";
-        var cellStatus = cell.getStatus();
-        switch (cellStatus) {
-            case CLOSED:
-                symbol = "C";
-                break;
-            case OPENED:
-                symbol = "O";
-                break;
-            case FLAGGED:
-                symbol = "F";
-                break;
-        }
-
-        return symbol;
-    }
-
 
     private int min(int a, int b) {
         return Math.min(a, b);
