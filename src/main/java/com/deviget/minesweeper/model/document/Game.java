@@ -36,8 +36,8 @@ public class Game {
         return createdDate;
     }
 
-    public Board getBoard() {
-        return board;
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Instant getLastMoveDate() {
@@ -56,6 +56,9 @@ public class Game {
         this.lastResumeDate = lastResumeDate;
     }
 
+    public Board getBoard() {
+        return board;
+    }
 
     @Override
     public boolean equals(Object o) {

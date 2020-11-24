@@ -1,6 +1,5 @@
 package com.deviget.minesweeper.converter;
 
-import com.deviget.minesweeper.model.Cell;
 import com.deviget.minesweeper.model.api.CellResponse;
 import com.deviget.minesweeper.model.api.GameResponse;
 import com.deviget.minesweeper.model.document.Game;
