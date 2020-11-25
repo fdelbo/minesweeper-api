@@ -42,7 +42,7 @@ This API allows you to:
 * Create a user
 * Get the games related to a user
 * Create a game
-* Make an action in a game (FLIP, FLAG, MARK, REMOVE FLAG/MARK) given a coordinate
+* Make an action in a game (FLIP, FLAG, MARK, REMOVE FLAG/MARK) a cell given its coordinates
 * Change game status (PLAYING/PAUSE)
 
 You can access the online documentation through this link
