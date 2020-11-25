@@ -20,12 +20,17 @@ public class Board {
     }
 
     public Board(int rows, int columns, int mines) {
-        this.cells = new Cell[rows][columns];
+        this(new Cell[rows][columns], rows, columns, mines);
+        initialize();
+    }
+
+    public Board(Cell[][] cells, int rows, int columns, int mines) {
+        this.cells = cells;
         this.minesCount = mines;
         this.rowsCount = rows;
         this.columnsCount = columns;
         this.gameStatus = GameStatus.PLAYING;
-        initialize();
+        this.openedCells = 0;
     }
 
     /**
@@ -71,7 +76,7 @@ public class Board {
     }
 
     /**
-     * This methods flips a {@link Cell}
+     * This methods flips a {@link Cell} given its coordinates
      *
      * @param r is the row that in combination with a column defines a {@link Cell} that should be flipped
      * @param c is the column that in combination with a row defines a {@link Cell} that should be flipped
@@ -179,7 +184,9 @@ public class Board {
     }
 
     /**
-     * This method flips neighboud cells given both a row and a column
+     * This method flips a cell and goes through its neighbour cells to flip them when they are blank (when they
+     * doesn't have nearby mines).
+     * It stops going through when it detects the visited cell has nearby mines.
      *
      * @param r is the row that in combination with a column defines a {@link Cell} that should be flipped
      * @param c is the column that in combination with a row defines a {@link Cell} that should be flipped
@@ -193,6 +200,7 @@ public class Board {
 
             if(openedCells == (rowsCount * columnsCount - minesCount)){
                 gameStatus = GameStatus.WON;
+                openMines();
             } else {
 
                 //If cell has no nearby mines
