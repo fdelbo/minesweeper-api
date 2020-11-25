@@ -1,6 +1,6 @@
 package com.deviget.minesweeper.game.impl;
 
-import com.deviget.minesweeper.game.MoveExecutor;
+import com.deviget.minesweeper.game.ActionExecutor;
 import com.deviget.minesweeper.model.GameStatus;
 import com.deviget.minesweeper.model.MoveType;
 import com.deviget.minesweeper.model.document.Game;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-class FlipCellMoveExecutor extends MoveExecutor {
+class FlipCellActionExecutor extends ActionExecutor {
 
-    public FlipCellMoveExecutor(GameRepository gameRepository) {
+    public FlipCellActionExecutor(GameRepository gameRepository) {
         super(gameRepository);
     }
 

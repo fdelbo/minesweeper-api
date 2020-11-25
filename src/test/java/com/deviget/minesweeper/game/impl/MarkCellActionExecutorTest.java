@@ -10,15 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-class MarkCellMoveExecutorTest {
+class MarkCellActionExecutorTest {
 
     @Test
-    void givenAMarkCellMove_thenCellIsMarkedAndTheGameIsStored() {
+    void givenAMarkCellAction_thenCellIsMarkedAndTheGameIsStored() {
         //Given
         var row = 1;
         var column = 2;
         var gameRepository = mock(GameRepository.class);
-        var executor = new MarkCellMoveExecutor(gameRepository);
+        var executor = new MarkCellActionExecutor(gameRepository);
         var board = mock(Board.class);
         var game = new Game("user-id", board);
 

@@ -7,18 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-class FlagCellMoveExecutorTest {
+class RemoveFlagOrMarkActionExecutorTest {
 
     @Test
-    void givenAFlagCellMove_thenCellIsFlaggedAndTheGameIsStored() {
+    void givenARemoveFlagOrMarkAction_thenFlagOrMarkIsRemovedAndTheGameIsStored() {
         //Given
         var row = 1;
         var column = 2;
         var gameRepository = mock(GameRepository.class);
-        var executor = new FlagCellMoveExecutor(gameRepository);
+        var executor = new RemoveFlagOrMarkActionExecutor(gameRepository);
         var board = mock(Board.class);
         var game = new Game("user-id", board);
 
@@ -27,7 +26,8 @@ class FlagCellMoveExecutorTest {
 
         //Then
         assertDoesNotThrow(executable, "No exception is expected because the execute method should perform ok");
-        verify(board, only()).toggleFlag(eq(row), eq(column));
+        verify(board, only()).removeFlagOrMark(eq(row), eq(column));
         verify(gameRepository, only()).save(eq(game));
     }
+
 }

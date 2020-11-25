@@ -1,6 +1,6 @@
 package com.deviget.minesweeper.game.impl;
 
-import com.deviget.minesweeper.game.MoveExecutorResolver;
+import com.deviget.minesweeper.game.ActionExecutorResolver;
 import com.deviget.minesweeper.model.GameStatus;
 import com.deviget.minesweeper.model.MoveType;
 import org.junit.jupiter.api.Test;
@@ -11,29 +11,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MoveExecutorResolverImplTest {
+class ActionExecutorResolverImplTest {
 
     @Test
-    void whenCannotResolveAMoveExecutor_thenThrowsIllegalArgumentException() {
+    void whenCannotResolveAnActionExecutor_thenThrowsIllegalArgumentException() {
         //Given
-        var resolver = new MoveExecutorResolverImpl(List.of());
+        var resolver = new ActionExecutorResolverImpl(List.of());
 
         //When
-        Executable executable = () -> resolver.resolveMoveExecutor(GameStatus.PLAYING, MoveType.FLIP);
+        Executable executable = () -> resolver.resolveActionExecutor(GameStatus.PLAYING, MoveType.FLIP);
 
         //Then
         assertThrows(IllegalArgumentException.class, executable,
-                "Resolver is expected to fail because cannot resolve MoveExecutor for the given params");
+                "Resolver is expected to fail because cannot resolve ActionExecutor for the given params");
     }
 
     @Test
-    void whenResolveIsAbleToResolveAMoveExecutor_thenReturnsAMoveExecutor() {
+    void whenResolveIsAbleToResolveAnActionExecutor_thenReturnsAnActionExecutor() {
         //Given
-        var executor = new FlipCellMoveExecutor(null);
-        var resolver = new MoveExecutorResolverImpl(List.of(executor));
+        var executor = new FlipCellActionExecutor(null);
+        var resolver = new ActionExecutorResolverImpl(List.of(executor));
 
         //When
-        var result = resolver.resolveMoveExecutor(GameStatus.PLAYING, MoveType.FLIP);
+        var result = resolver.resolveActionExecutor(GameStatus.PLAYING, MoveType.FLIP);
 
         //Then
         assertNotNull(result);
@@ -54,27 +54,27 @@ class MoveExecutorResolverImplTest {
                 "GameStatus and MoveType", executables);
     }
 
-    private List<Executable> resolveForEachGameStatusAndMoveType(MoveExecutorResolver resolver) {
+    private List<Executable> resolveForEachGameStatusAndMoveType(ActionExecutorResolver resolver) {
         var executables = new ArrayList<Executable>();
 
         for (GameStatus gameStatus : GameStatus.values()) {
             for(MoveType moveType : MoveType.values()) {
-                executables.add(() -> resolver.resolveMoveExecutor(gameStatus, moveType));
+                executables.add(() -> resolver.resolveActionExecutor(gameStatus, moveType));
             }
         }
 
         return executables;
     }
 
-    private MoveExecutorResolver createResolver() {
+    private ActionExecutorResolver createResolver() {
         var executors = List.of(
-                new FlagCellMoveExecutor(null),
-                new FlipCellMoveExecutor(null),
-                new MarkCellMoveExecutor(null),
-                new NoOpMoveExecutor(null),
-                new RemoveFlagOrMarkMoveExecutor(null)
+                new FlagCellActionExecutor(null),
+                new FlipCellActionExecutor(null),
+                new MarkCellActionExecutor(null),
+                new NoOpActionExecutor(null),
+                new RemoveFlagOrMarkActionExecutor(null)
         );
 
-        return new MoveExecutorResolverImpl(executors);
+        return new ActionExecutorResolverImpl(executors);
     }
 }

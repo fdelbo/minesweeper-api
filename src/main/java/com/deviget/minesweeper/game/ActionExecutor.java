@@ -11,13 +11,13 @@ import java.time.Instant;
 import java.util.List;
 
 /**
- * This class is an abstraction of a move execution implemented as a template method
+ * This class is an abstraction of an action execution implemented as a template method
  */
-public abstract class MoveExecutor {
+public abstract class ActionExecutor {
 
     private GameRepository gameRepository;
 
-    public MoveExecutor(GameRepository gameRepository) {
+    public ActionExecutor(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
 

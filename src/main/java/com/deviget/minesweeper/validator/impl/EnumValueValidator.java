@@ -6,6 +6,9 @@ import org.apache.logging.log4j.util.Strings;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * This validator validates that the conversion from String to some Enum is valid
+ */
 public class EnumValueValidator implements ConstraintValidator<EnumValue, String> {
 
     private Class<? extends Enum<?>> enumClass;

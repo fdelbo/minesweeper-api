@@ -1,7 +1,7 @@
 package com.deviget.minesweeper.game.impl;
 
-import com.deviget.minesweeper.game.MoveExecutor;
-import com.deviget.minesweeper.game.MoveExecutorResolver;
+import com.deviget.minesweeper.game.ActionExecutor;
+import com.deviget.minesweeper.game.ActionExecutorResolver;
 import com.deviget.minesweeper.model.GameStatus;
 import com.deviget.minesweeper.model.MoveType;
 import org.springframework.data.util.Pair;
@@ -12,15 +12,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * This class works as a strategy resolver of a {@link MoveExecutor}
+ * This class works as a strategy resolver of a {@link ActionExecutor}
  * based on both a given {@link GameStatus} and a {@link MoveType}
  */
 @Component
-class MoveExecutorResolverImpl implements MoveExecutorResolver {
+class ActionExecutorResolverImpl implements ActionExecutorResolver {
 
-    private Map<String, MoveExecutor> moveExecutors;
+    private Map<String, ActionExecutor> moveExecutors;
 
-    public MoveExecutorResolverImpl(List<MoveExecutor> executors) {
+    public ActionExecutorResolverImpl(List<ActionExecutor> executors) {
         /*
          * Creates a map containing all the strategies to execute a Move action
          */
@@ -32,12 +32,12 @@ class MoveExecutorResolverImpl implements MoveExecutorResolver {
                 .collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
     }
 
-    public MoveExecutor resolveMoveExecutor(GameStatus gameStatus, MoveType moveType) {
+    public ActionExecutor resolveActionExecutor(GameStatus gameStatus, MoveType moveType) {
         var key = generateKey(gameStatus, moveType);
         var moveExecutor = moveExecutors.get(key);
 
         if(moveExecutor == null) {
-            throw new IllegalArgumentException("Cannot resolve MoveExecutor given this moveType: " + moveType.name());
+            throw new IllegalArgumentException("Cannot resolve ActionExecutor given this moveType: " + moveType.name());
         }
 
         return moveExecutor;

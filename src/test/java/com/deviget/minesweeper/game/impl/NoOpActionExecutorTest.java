@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-class NoOpMoveExecutorTest {
+class NoOpActionExecutorTest {
 
     @Test
     void givenAGame_thenNoOpBehaviorIsExpected() {
         //Given
         var gameRepository = mock(GameRepository.class);
         var game = mock(Game.class);
-        var executor = new NoOpMoveExecutor(gameRepository);
+        var executor = new NoOpActionExecutor(gameRepository);
 
         //When
         executor.execute(game, 1, 1);

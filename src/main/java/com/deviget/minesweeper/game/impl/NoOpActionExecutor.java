@@ -1,6 +1,6 @@
 package com.deviget.minesweeper.game.impl;
 
-import com.deviget.minesweeper.game.MoveExecutor;
+import com.deviget.minesweeper.game.ActionExecutor;
 import com.deviget.minesweeper.model.GameStatus;
 import com.deviget.minesweeper.model.MoveType;
 import com.deviget.minesweeper.model.document.Game;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * This {@link MoveExecutor} is a noop moveExecutor.
+ * This {@link ActionExecutor} is a noop actionExecutor.
  * This implementation has to be used in all the {@link MoveType} when {@link GameStatus} is not 'PLAYING'
  */
 @Component
-class NoOpMoveExecutor extends MoveExecutor {
+class NoOpActionExecutor extends ActionExecutor {
 
-    public NoOpMoveExecutor(GameRepository gameRepository) {
+    public NoOpActionExecutor(GameRepository gameRepository) {
         super(gameRepository);
     }
 

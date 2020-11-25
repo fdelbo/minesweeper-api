@@ -16,7 +16,7 @@ class MoveRequestAndGameValidatorImplTest {
     @Test
     void givenAValidRequestAndGame_thenNoExceptionIsExpected() {
         //Given
-        var validator = new MoveRequestAndGameValidatorImpl();
+        var validator = new ActionRequestAndGameValidatorImpl();
         var request = createRequest("user-id-test", "FLIP", 1, 1);
         var game = createGame(4, 4);
 
@@ -31,7 +31,7 @@ class MoveRequestAndGameValidatorImplTest {
     void givenARequestWithInvalidRowRange_thenValidationExceptionIsExpected() {
         //Given
         var invalidRow = 4;
-        var validator = new MoveRequestAndGameValidatorImpl();
+        var validator = new ActionRequestAndGameValidatorImpl();
         var request = createRequest("user-id-test", "FLIP", invalidRow, 1);
         var game = createGame(4, 4);
 
@@ -50,7 +50,7 @@ class MoveRequestAndGameValidatorImplTest {
     void givenARequestWithInvalidColumnRange_thenValidationExceptionIsExpected() {
         //Given
         var invalidColumn = 4;
-        var validator = new MoveRequestAndGameValidatorImpl();
+        var validator = new ActionRequestAndGameValidatorImpl();
         var request = createRequest("user-id-test", "FLIP", 1, invalidColumn);
         var game = createGame(4, 4);
 
@@ -70,7 +70,7 @@ class MoveRequestAndGameValidatorImplTest {
         //Given
         var invalidRow = 4;
         var invalidColumn = 4;
-        var validator = new MoveRequestAndGameValidatorImpl();
+        var validator = new ActionRequestAndGameValidatorImpl();
         var request = createRequest("user-id-test", "FLIP", invalidRow, invalidColumn);
         var game = createGame(4, 4);
 

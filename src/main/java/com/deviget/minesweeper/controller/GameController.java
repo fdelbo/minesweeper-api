@@ -43,7 +43,7 @@ public class GameController {
 
     @ApiOperation("Allows to make a move in a given game")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Move made successfully"),
+            @ApiResponse(code = 200, message = "Action made successfully"),
             @ApiResponse(code = 400, message = "Invalid request"),
             @ApiResponse(code = 404, message = "Game or User not found"),
             @ApiResponse(code = 503, message = "Service unavailable")

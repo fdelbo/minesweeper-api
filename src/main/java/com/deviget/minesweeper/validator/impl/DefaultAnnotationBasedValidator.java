@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Validation;
 
+/**
+ * This validator validates the annotated fields of a given object.
+ * The annotations used with the fields must be part of javax.validations
+ */
 @Component
 class DefaultAnnotationBasedValidator implements AnnotationBasedValidator {
 

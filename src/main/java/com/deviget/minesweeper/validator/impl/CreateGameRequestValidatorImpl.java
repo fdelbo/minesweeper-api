@@ -2,11 +2,15 @@ package com.deviget.minesweeper.validator.impl;
 
 import com.deviget.minesweeper.exception.ResourceNotFoundException;
 import com.deviget.minesweeper.model.api.CreateGameRequest;
+import com.deviget.minesweeper.model.document.Game;
 import com.deviget.minesweeper.repository.UserRepository;
 import com.deviget.minesweeper.validator.AnnotationBasedValidator;
 import com.deviget.minesweeper.validator.CreateGameRequestValidator;
 import org.springframework.stereotype.Component;
 
+/**
+ * This validator validates that the needed data to create a new {@link Game} is valid
+ */
 @Component
 class CreateGameRequestValidatorImpl implements CreateGameRequestValidator {
 

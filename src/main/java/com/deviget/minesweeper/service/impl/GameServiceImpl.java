@@ -2,7 +2,7 @@ package com.deviget.minesweeper.service.impl;
 
 import com.deviget.minesweeper.exception.ResourceNotFoundException;
 import com.deviget.minesweeper.model.Board;
-import com.deviget.minesweeper.game.MoveExecutorResolver;
+import com.deviget.minesweeper.game.ActionExecutorResolver;
 import com.deviget.minesweeper.model.GameStatus;
 import com.deviget.minesweeper.model.MoveType;
 import com.deviget.minesweeper.model.api.ChangeGameStatusRequest;
@@ -13,7 +13,7 @@ import com.deviget.minesweeper.repository.GameRepository;
 import com.deviget.minesweeper.service.GameService;
 import com.deviget.minesweeper.validator.AnnotationBasedValidator;
 import com.deviget.minesweeper.validator.CreateGameRequestValidator;
-import com.deviget.minesweeper.validator.MakeAMoveRequestAndGameValidator;
+import com.deviget.minesweeper.validator.MakeAnActionRequestAndGameValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,19 +28,19 @@ class GameServiceImpl implements GameService {
 
     private CreateGameRequestValidator createRequestValidator;
     private AnnotationBasedValidator annotationBasedValidator;
-    private MakeAMoveRequestAndGameValidator moveRequestAndGameValidator;
-    private MoveExecutorResolver moveExecutorResolver;
+    private MakeAnActionRequestAndGameValidator actionRequestAndGameValidator;
+    private ActionExecutorResolver actionExecutorResolver;
     private GameRepository gameRepository;
 
     public GameServiceImpl(GameRepository gameRepository, CreateGameRequestValidator requestValidator,
                            AnnotationBasedValidator annotationBasedValidator,
-                           MakeAMoveRequestAndGameValidator moveRequestAndGameValidator,
-                           MoveExecutorResolver moveExecutorResolver) {
+                           MakeAnActionRequestAndGameValidator actionRequestAndGameValidator,
+                           ActionExecutorResolver actionExecutorResolver) {
         this.gameRepository = gameRepository;
         this.createRequestValidator = requestValidator;
         this.annotationBasedValidator = annotationBasedValidator;
-        this.moveRequestAndGameValidator = moveRequestAndGameValidator;
-        this.moveExecutorResolver = moveExecutorResolver;
+        this.actionRequestAndGameValidator = actionRequestAndGameValidator;
+        this.actionExecutorResolver = actionExecutorResolver;
     }
 
     @Override
@@ -64,10 +64,10 @@ class GameServiceImpl implements GameService {
                 request.getColumn());
 
         var game = findGameInRepository(gameId, request.getUserId());
-        moveRequestAndGameValidator.accept(request, game);
+        actionRequestAndGameValidator.accept(request, game);
 
-        //Selects a move executor
-        var moveExecutor = moveExecutorResolver.resolveMoveExecutor(game.getBoard().getGameStatus(),
+        //Selects an action executor
+        var moveExecutor = actionExecutorResolver.resolveActionExecutor(game.getBoard().getGameStatus(),
                 MoveType.valueOf(request.getType()));
 
         //Makes the move
