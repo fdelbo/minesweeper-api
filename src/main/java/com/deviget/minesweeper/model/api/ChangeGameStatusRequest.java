@@ -9,6 +9,13 @@ public class ChangeGameStatusRequest {
     @NotBlank(message = USER_ID_BLANK)
     private String userId;
 
+    public ChangeGameStatusRequest() {
+    }
+
+    public ChangeGameStatusRequest(String userId) {
+        this.userId = userId;
+    }
+
     public String getUserId() {
         return userId;
     }
