@@ -49,7 +49,7 @@ public class GameController {
             @ApiResponse(code = 503, message = "Service unavailable")
     })
     @PatchMapping(path = "{gameId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GameResponse> click(
+    public ResponseEntity<GameResponse> makeAMove(
             @ApiParam(value = "Id related to the game you want to play")
             @PathVariable("gameId") String gameId,
             @ApiParam(value = "Data related to the move you want to make")

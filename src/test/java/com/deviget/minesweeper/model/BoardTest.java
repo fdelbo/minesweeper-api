@@ -86,6 +86,10 @@ class BoardTest {
 
     @Test
     void givenAnInitialGameSetup_whenFlipANotMinedCell_thenFlipTheCellAndItsNoNearbyMineNeighbours() {
+        var rows = 5;
+        var columns = 5;
+        var mines = 2;
+
         //Given
         var expectedResult = new Cell[][] {
                 { new Cell(0, 0, false, 0, CellStatus.OPENED),
@@ -151,18 +155,21 @@ class BoardTest {
                         new Cell(4, 4, false, 0, CellStatus.CLOSED)
                 }};
 
-        var board = new Board(initialCells, 5, 5, 2);
+        var board = new Board(initialCells, rows, columns, mines);
 
         //When
         board.flipCell(1, 3);
 
         //Then
-        assertTrue(equals(expectedResult, board.getCells(), 5, 5));
+        assertTrue(equals(expectedResult, board.getCells(), rows, columns));
         assertEquals(GameStatus.PLAYING, board.getGameStatus());
     }
 
     @Test
     void givenAnInitialGameSetup_whenFlipANotMinedCellWithNearbyMines_thenJustFlipTheCell() {
+        var rows = 3;
+        var columns = 3;
+        var mines = 1;
         var expectedResult = new Cell[][] {
                 { new Cell(0, 0, false, 1, CellStatus.CLOSED),
                         new Cell(0, 1, false, 1, CellStatus.CLOSED),
@@ -189,13 +196,13 @@ class BoardTest {
                         new Cell(2, 1, false, 1, CellStatus.CLOSED),
                         new Cell(2, 2, false, 1, CellStatus.CLOSED)}};
 
-        var board = new Board(initialCells, 3, 3, 1);
+        var board = new Board(initialCells, rows, columns, mines);
 
         //When
         board.flipCell(0, 2);
 
         //Then
-        assertTrue(equals(expectedResult, board.getCells(), 3, 3));
+        assertTrue(equals(expectedResult, board.getCells(), rows, columns));
         assertEquals(GameStatus.PLAYING, board.getGameStatus());
     }
 

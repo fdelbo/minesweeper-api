@@ -46,6 +46,6 @@ public class MainExceptionHandler {
         logger.error("An unexpected error occurred", e);
         var apiError = new ApiErrorResponse("UNKNOWN_ERROR", "An unexpected error occurred",
                 List.of(e.getMessage()));
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiError);
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(apiError);
     }
 }
