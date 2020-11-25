@@ -17,6 +17,15 @@ public class CreateUserRequest {
     @NotBlank(message = USERNAME_NOT_BLANK)
     private String userName;
 
+    public CreateUserRequest() {
+    }
+
+    public CreateUserRequest(String name, String lastName, String userName) {
+        this.name = name;
+        this.lastName = lastName;
+        this.userName = userName;
+    }
+
     public String getName() {
         return name;
     }
