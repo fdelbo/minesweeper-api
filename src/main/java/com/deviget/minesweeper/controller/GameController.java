@@ -67,7 +67,7 @@ public class GameController {
             @ApiResponse(code = 503, message = "Service unavailable")
     })
     @PatchMapping(path = "{gameId}/status", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> tooglePauseOrPlay(
+    public ResponseEntity<?> togglePauseOrPlay(
             @ApiParam(value = "Id related to the game you want to change the status")
             @PathVariable("gameId") String gameId,
             @ApiParam(value = "Date related to the game you want to change the status")
