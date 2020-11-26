@@ -48,6 +48,7 @@ This API allows you to:
 You can access the online documentation through this link
 [API documentation](https://nameless-ocean-97360.herokuapp.com/minesweeper/swagger-ui.html)
 
+## Integrations
+You can find a rest client written in nodejs to easily integrate your application.
 
-
-
+The client is in '/client' folder within the project.
