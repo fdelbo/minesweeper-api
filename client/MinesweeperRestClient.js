@@ -55,7 +55,10 @@ class MinesweeperRestClient {
     };
 
     return fetch(url, config).then(r => {
-      return r.json();
+      if (r.ok) {
+        return r.json();
+      }
+      throw new Error(r);
     });
   }
 
